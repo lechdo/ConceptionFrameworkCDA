@@ -1,4 +1,6 @@
 package fr.eni.jpa.entity;
+
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,8 +17,8 @@ public class TestUser {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Mysql_UP");
 		EntityManager em = emf.createEntityManager();
 		
-		
-		User u1 = new User(1, "java", "avance");
+		// le mois liste à partir de 0, le jour et l'année à partir de 1
+		User u1 = new User("java", "avance", "dupont", "marcel", new GregorianCalendar(2000,GregorianCalendar.MAY,22), 19);
 		
 		em.getTransaction().begin();
 		try {
