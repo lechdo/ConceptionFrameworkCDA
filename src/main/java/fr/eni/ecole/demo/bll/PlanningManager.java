@@ -16,6 +16,17 @@ public class PlanningManager {
 
 	public PlanningManager() {
 	}
+	
+	
+
+	public PlanningManager(DAO<Cours> coursDAO, DAO<Formateur> formateurDAO, DAO<Session> sessionDAO) {
+		super();
+		this.coursDAO = coursDAO;
+		this.formateurDAO = formateurDAO;
+		this.sessionDAO = sessionDAO;
+	}
+
+
 
 	public Cours creerUnCours(String nom, int duree) {
 		// Vérification de la durée

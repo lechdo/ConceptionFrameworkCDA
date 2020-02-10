@@ -10,6 +10,9 @@
 	<property name="coursDAO" ref="coursDAOBean"></property>
 	<property name="formateurDAO" ref="formateurDAOBean"></property>
 	<property name="sessionDAO" ref="sessionDAOBean"></property>
+	<constructor-arg name="coursDAO" ref="coursDAOBean"></constructor-arg>
+	<constructor-arg name="formateurDAO" ref="formateurDAOBean"></constructor-arg>
+	<constructor-arg name="sessionDAO" ref="coursDAOBean"></constructor-arg>
 </bean>
 
 </beans>
