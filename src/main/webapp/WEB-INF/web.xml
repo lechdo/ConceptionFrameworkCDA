@@ -30,10 +30,10 @@
 	</filter-mapping>
 
 	<context-param>
-		<param-name>contextConfiguration</param-name>
+		<param-name>contextConfigLocation</param-name>
 		<param-value>WEB-INF/ApplicationContext.xml</param-value>
 	</context-param>
 	<listener>
-		<listener-class>org.springframework.web.contaxt.ContextLoaderListener</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 </web-app>
