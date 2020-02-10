@@ -25,7 +25,7 @@ public class DemoConfigurationBeansApplicationTests {
 
 	@Before
 	public void setUp() {
-		context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		context = new ClassPathXmlApplicationContext("WEB-INF/ApplicationContext.xml");
 	}
 
 	@After

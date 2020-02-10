@@ -1,10 +1,11 @@
 package fr.eni.ecole.demo.dal;
 
-import javax.inject.Named;
+
+import org.springframework.stereotype.Repository;
 
 import fr.eni.ecole.demo.bo.Cours;
 
-@Named("coursDAOBean")
+@Repository("coursDAOBean")
 public class CoursDAOJDBC implements DAO<Cours>{
 
 	public void create(Cours elem) {

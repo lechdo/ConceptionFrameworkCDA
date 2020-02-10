@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -26,8 +24,7 @@ public class PlanningManager {
 	@Resource(name="formateurDAOBean")
 	private DAO<Formateur> formateurDAO;
 	
-	@Inject
-	@Named("sessionDAOBean")
+	@Resource(name= "sessionDAOBean")
 	private DAO<Session> sessionDAO;
 
 	public PlanningManager() {
