@@ -3,15 +3,31 @@ package fr.eni.ecole.demo.bll;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.annotation.Resource;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
 import fr.eni.ecole.demo.bo.Cours;
 import fr.eni.ecole.demo.bo.Formateur;
 import fr.eni.ecole.demo.bo.Session;
 import fr.eni.ecole.demo.dal.DAO;
 
-
+@Service("planningManagerBean")
 public class PlanningManager {
+	
+	@Autowired
+	@Qualifier("coursDAOBean")
 	private DAO<Cours> coursDAO;
+	
+	@Resource(name="formateurDAOBean")
 	private DAO<Formateur> formateurDAO;
+	
+	@Inject
+	@Named("sessionDAOBean")
 	private DAO<Session> sessionDAO;
 
 	public PlanningManager() {

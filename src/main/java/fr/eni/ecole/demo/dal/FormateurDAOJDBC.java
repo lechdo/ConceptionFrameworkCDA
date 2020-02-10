@@ -1,7 +1,10 @@
 package fr.eni.ecole.demo.dal;
 
+import org.springframework.stereotype.Component;
+
 import fr.eni.ecole.demo.bo.Formateur;
 
+@Component("formateurDAOBean")
 public class FormateurDAOJDBC implements DAO<Formateur>{
 
 	public void create(Formateur elem) {

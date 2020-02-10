@@ -1,7 +1,10 @@
 package fr.eni.ecole.demo.dal;
 
+import org.springframework.stereotype.Repository;
+
 import fr.eni.ecole.demo.bo.Session;
 
+@Repository("sessionDAOBean")
 public class SessionDAOJDBC implements DAO<Session>{
 
 	public void create(Session elem) {

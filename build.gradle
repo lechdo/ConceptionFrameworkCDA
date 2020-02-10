@@ -13,6 +13,11 @@ plugins {
 
 dependencies {
 	compile group: 'org.springframework', name:'spring-context', version:'4.3.22.RELEASE'
+	
+	// https://mvnrepository.com/artifact/javax.enterprise/cdi-api
+	compile group: 'javax.enterprise', name: 'cdi-api', version: '1.2'
+	
+	
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api 'org.apache.commons:commons-math3:3.6.1'
 
