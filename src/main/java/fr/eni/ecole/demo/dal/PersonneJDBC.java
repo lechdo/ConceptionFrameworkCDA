@@ -2,61 +2,65 @@ package fr.eni.ecole.demo.dal;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.eni.ecole.demo.bo.Personne;
 
 @Repository("personneJDBCBean")
 public class PersonneJDBC implements PersonneDAO {
 
-	@Autowired
-	JdbcTemplate jt;
+	@PersistenceContext
+	EntityManager em;
 
+	@Transactional
 	@Override
 	public void add(Personne personne) {
-		String req = "insert into Personnes (nom, prenom, age) values (?,?,?)";
-		jt.update(req, personne.getNom(), personne.getPrenom(), personne.getAge());
-
+		em.persist(personne);
 	}
 
-	@Override
-	public Personne getPersonne(int id) {
-		String req = "select id, nom, prenom, age from Personnes where id = ?";
-		return jt.queryForObject(req, new BeanPropertyRowMapper<Personne>(Personne.class), id);
-
-	}
-
+	@Transactional
 	@Override
 	public void update(Personne personne) {
-		String req = "update Personnes set nom = ?, prenom = ?, age = ? where id = ?";
-		jt.update(req, personne.getNom(), personne.getPrenom(), personne.getAge(), personne.getId());
-
+		em.merge(personne);
 	}
 
+	@Transactional
 	@Override
 	public void delete(Personne personne) {
-		String req = "delete from Personnes where id = ?";
-		jt.update(req, personne.getId());
-
+		em.remove(personne);
 	}
 
 	@Override
 	public List<Personne> findAll() {
-		String req = "select nom, prenom, age from Personnes";
-		return jt.query(req, new BeanPropertyRowMapper<Personne>(Personne.class));
+		return em.createQuery("select p from Personne p", Personne.class).getResultList();
+	}
+
+	@Transactional
+	@Override
+	public void delete(int id) {
+		Personne personne = findById(id);
+		em.remove(personne);
+	}
+
+	@Transactional
+	@Override
+	public void delete(String nom) {
+		em.createQuery("delete from Personne p where p.nom = :nom").setParameter("nom", nom).executeUpdate();
 	}
 
 	@Override
-	public int nbPersonnes() {
-		String req = "select count(*) from Personnes";
-		return jt.queryForObject(req, Integer.class);
+	public Personne findById(int id) {
+		return em.find(Personne.class, id);
 	}
 
-	public void setJt(JdbcTemplate jt) {
-		this.jt = jt;
+	@Override
+	public Personne findLast() {
+		String req = "select p from Personne p order by p.id desc limit 1";
+		return em.createQuery(req, Personne.class).getSingleResult();
 	}
 
 }

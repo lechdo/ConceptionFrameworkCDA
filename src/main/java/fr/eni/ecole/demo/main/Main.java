@@ -4,9 +4,8 @@ import java.util.List;
 
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import fr.eni.ecole.demo.bll.GestionPersonne;
 import fr.eni.ecole.demo.bo.Personne;
-import fr.eni.ecole.demo.dal.PersonneDAO;
-import fr.eni.ecole.demo.dal.PersonneJDBC;
 
 public class Main {
 
@@ -15,30 +14,53 @@ public class Main {
 		Personne p2 = new Personne("Malice", "Denis", 8);
 
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-		PersonneDAO personneJDBC = context.getBean("personneJDBCBean", PersonneJDBC.class);
+		GestionPersonne gp = context.getBean("gestionPersonne", GestionPersonne.class);
+		
 		try {
-			System.out.println(p1);
-			personneJDBC.add(p1);
-			personneJDBC.add(p2);
+			gp.ajouterPersonne(p1);
+			gp.ajouterPersonne(p2);
+			
 
 			System.out.println("\nListe des personnes :");
-			List<Personne> liste = personneJDBC.findAll();
+			List<Personne> liste = gp.listePersonnes();
 
 			for (Personne personne : liste) {
 				System.out.println(personne);
 			}
 
-			System.out.println("\nLe nombre de personnes :");
-			int nb = personneJDBC.nbPersonnes();
-			System.out.println(nb);
-
-			System.out.println("\nSuppression de " + p1);
-			personneJDBC.delete(p1);
-
-			liste = personneJDBC.findAll();
+			System.out.println("\nmodifier p1 :");
+			p1.setNom("Leblond");
+			gp.modifierPersonne(p1);
+			liste = gp.listePersonnes();
 			for (Personne personne : liste) {
 				System.out.println(personne);
 			}
+
+//			System.out.println("\nSuppression de " + p1);
+//			gp.supprimerPersonne(p1);
+//
+//			liste = gp.listePersonnes();
+//			for (Personne personne : liste) {
+//				System.out.println(personne);
+//			}
+			
+			Personne p3 = new Personne("Pagnol", "Marcel", 75);
+			Personne p4 = new Personne("Paul", "Robert", 8);
+			
+			gp.ajouterPersonne(p3);
+			gp.ajouterPersonne(p4);
+			for (Personne personne : liste) {
+				System.out.println(personne);
+			}
+			
+			System.out.println("\nSuppression à partir de l'id :");
+			gp.supprimerPersonne(p3.getId());
+			gp.supprimerPersonne(p4.getNom());
+			for (Personne personne : liste) {
+				System.out.println(personne);
+			}
+			
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();

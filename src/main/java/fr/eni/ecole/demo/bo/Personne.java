@@ -1,7 +1,23 @@
 package fr.eni.ecole.demo.bo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ * Entity de JPA
+ * 
+ * @author jvince2018
+ *
+ */
+@Entity
+@Table(name = "SpringORMPersonnes")
 public class Personne {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String nom;
 	private String prenom;

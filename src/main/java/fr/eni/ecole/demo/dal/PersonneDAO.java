@@ -8,14 +8,18 @@ public interface PersonneDAO {
 
 	void add(Personne personne);
 
-	Personne getPersonne(int id);
-
 	void update(Personne personne);
 
 	void delete(Personne personne);
 
+	void delete(int id);
+
+	void delete(String nom);
+
 	List<Personne> findAll();
 
-	int nbPersonnes();
+	Personne findById(int id);
+
+	Personne findLast();
 
 }
