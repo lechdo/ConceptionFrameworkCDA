@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 import fr.eni.ecole.demo.bo.Personne;
 import fr.eni.ecole.demo.dal.PersonneDAO;
 
-@Service("gestionPersonne")
-public class GestionPersonne {
+@Service("gestionPersonneMS")
+public class GestionPersonneMS {
 
-	@Resource(name = "personneJDBCBean")
+	@Resource(name = "personneJDBCMSBean")
 	private PersonneDAO pdao;
 
 	public List<Personne> listePersonnes() {

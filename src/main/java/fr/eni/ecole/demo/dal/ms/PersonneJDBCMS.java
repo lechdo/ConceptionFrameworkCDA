@@ -1,4 +1,4 @@
-package fr.eni.ecole.demo.dal;
+package fr.eni.ecole.demo.dal.ms;
 
 import java.util.List;
 
@@ -9,26 +9,27 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.eni.ecole.demo.bo.Personne;
+import fr.eni.ecole.demo.dal.PersonneDAO;
 
-@Repository("personneJDBCBean")
-public class PersonneJDBC implements PersonneDAO {
+@Repository("personneJDBCMSBean")
+public class PersonneJDBCMS implements PersonneDAO {
 
-	@PersistenceContext(unitName = "PU1")
+	@PersistenceContext(unitName = "PU2")
 	EntityManager em;
 
-	@Transactional("transactionManager1")
+	@Transactional("transactionManager2")
 	@Override
 	public void add(Personne personne) {
 		em.persist(personne);
 	}
 
-	@Transactional("transactionManager1")
+	@Transactional("transactionManager2")
 	@Override
 	public void update(Personne personne) {
 		em.merge(personne);
 	}
 
-	@Transactional("transactionManager1")
+	@Transactional("transactionManager2")
 	@Override
 	public void delete(Personne personne) {
 		em.remove(personne);
@@ -39,14 +40,14 @@ public class PersonneJDBC implements PersonneDAO {
 		return em.createQuery("select p from Personne p", Personne.class).getResultList();
 	}
 
-	@Transactional("transactionManager1")
+	@Transactional("transactionManager2")
 	@Override
 	public void delete(int id) {
 		Personne personne = findById(id);
 		em.remove(personne);
 	}
 
-	@Transactional("transactionManager1")
+	@Transactional("transactionManager2")
 	@Override
 	public void delete(String nom) {
 		em.createQuery("delete from Personne p where p.nom = :nom").setParameter("nom", nom).executeUpdate();

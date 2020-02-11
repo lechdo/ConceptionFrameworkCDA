@@ -13,7 +13,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "SpringORMPersonnes")
+@Table(name = "Personnes")
 public class Personne {
 
 	@Id

@@ -15,10 +15,16 @@
 	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"></bean>
 	
 	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="location" value="classpath:datasource.properties"></property>
+		<property name="locations">
+			<list>
+				<value>classpath:datasource.properties</value>
+				<value>classpath:datasourceMS.properties</value>
+			</list>
+			
+		</property>
 	</bean>
 	
-	<bean id="datasource" 
+	<bean id="datasource1" 
 	class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="${driver}"></property>
 		<property name="url" value="${url}"></property>
@@ -30,25 +36,59 @@
 		<property name="maxTotal" value="${maxTotal}"></property>
 	</bean>
 	
-	<bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	<bean id="emf1" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="packagesToScan">
 			<list>
 				<value>fr.eni.ecole.demo.bo</value>
 			</list>		
 		</property>
-		<property name="dataSource" ref="datasource"></property>
+		<property name="dataSource" ref="datasource1"></property>
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="showSql" value="true"></property>
 				<property name="database" value="MYSQL"></property>
-				<property name="generateDdl" value="true"></property>
+				<property name="generateDdl" value="false"></property>
 			</bean>
 		</property>
+		<property name="persistenceUnitName" value="PU1"></property>
 	</bean>
 	
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="emf"></property>
+	<bean id="transactionManager1"
+	class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="emf1"></property>
 	</bean>
-	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	
+	
+	
+	
+	<bean id="datasource2" 
+	class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${driverMS}"></property>
+		<property name="url" value="${urlMS}"></property>
+		<property name="username" value="${usernameMS}"></property>
+		<property name="password" value="${passwordMS}"></property>
+	</bean>
+	
+	<bean id="emf2" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="packagesToScan">
+			<list>
+				<value>fr.eni.ecole.demo.bo</value>
+			</list>		
+		</property>
+		<property name="dataSource" ref="datasource2"></property>
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="true"></property>
+				<property name="generateDdl" value="false"></property>
+			</bean>
+		</property>
+		<property name="persistenceUnitName" value="PU2"></property>
+	</bean>
+	
+	<bean id="transactionManager2" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="emf2"></property>
+	</bean>
+	<tx:annotation-driven />
 	
 </beans>

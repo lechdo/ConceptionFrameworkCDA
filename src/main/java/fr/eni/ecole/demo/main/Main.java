@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import fr.eni.ecole.demo.bll.GestionPersonne;
+import fr.eni.ecole.demo.bll.GestionPersonneMS;
 import fr.eni.ecole.demo.bo.Personne;
 
 public class Main {
@@ -12,50 +13,33 @@ public class Main {
 	public static void main(String[] args) {
 		Personne p1 = new Personne("Robert", "Marta", 75);
 		Personne p2 = new Personne("Malice", "Denis", 8);
+		Personne p1MS = new Personne("Robert", "Marta", 75);
+		Personne p2MS = new Personne("Malice", "Denis", 8);
 
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
 		GestionPersonne gp = context.getBean("gestionPersonne", GestionPersonne.class);
+		GestionPersonneMS gpMS = context.getBean("gestionPersonneMS", GestionPersonneMS.class);
 		
 		try {
+			///////////////////////////////////////////////////////
 			gp.ajouterPersonne(p1);
 			gp.ajouterPersonne(p2);
 			
 
-			System.out.println("\nListe des personnes :");
+			System.out.println("\nListe des personnes (Mysql):");
 			List<Personne> liste = gp.listePersonnes();
 
 			for (Personne personne : liste) {
 				System.out.println(personne);
 			}
+			/////////////////////////////////////////////////////////
+			gpMS.ajouterPersonne(p1MS);
+			gpMS.ajouterPersonne(p2MS);
+			
 
-			System.out.println("\nmodifier p1 :");
-			p1.setNom("Leblond");
-			gp.modifierPersonne(p1);
-			liste = gp.listePersonnes();
-			for (Personne personne : liste) {
-				System.out.println(personne);
-			}
-//			Ne fonctionne pas car l'AOP shunte le cache d'hibernate. 
-//			System.out.println("\nSuppression de " + p1);
-//			gp.supprimerPersonne(p1);
-//
-//			liste = gp.listePersonnes();
-//			for (Personne personne : liste) {
-//				System.out.println(personne);
-//			}
-			
-			Personne p3 = new Personne("Pagnol", "Marcel", 75);
-			Personne p4 = new Personne("Paul", "Robert", 8);
-			
-			gp.ajouterPersonne(p3);
-			gp.ajouterPersonne(p4);
-			for (Personne personne : liste) {
-				System.out.println(personne);
-			}
-			
-			System.out.println("\nSuppression à partir de l'id :");
-			gp.supprimerPersonne(p3.getId());
-			gp.supprimerPersonne(p4.getNom());
+			System.out.println("\nListe des personnes (sqlserver):");
+			liste = gpMS.listePersonnes();
+
 			for (Personne personne : liste) {
 				System.out.println(personne);
 			}
