@@ -35,7 +35,7 @@ public class Main {
 			for (Personne personne : liste) {
 				System.out.println(personne);
 			}
-
+//			Ne fonctionne pas car l'AOP shunte le cache d'hibernate. 
 //			System.out.println("\nSuppression de " + p1);
 //			gp.supprimerPersonne(p1);
 //
