@@ -9,14 +9,23 @@
 
 	<context:annotation-config></context:annotation-config>
 	
-	<bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<bean id="datasource" 
+	class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 		<property name="url" value="jdbc:mysql://localhost:3306/javaavance?serverTimeZone=UTC"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value="Pa$$w0rd"></property>
 		
-	
+		
+		<property name="initialSize" value="2"></property>
+		<property name="maxTotal" value="8"></property>
 	</bean>
+	
+	<bean class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="datasource"></property>
+	</bean>
+	
+	<bean id="personneJDBCBean" class="fr.eni.ecole.demo.dal.PersonneJDBC"></bean>
 	
 	<context:component-scan base-package="fr.eni.ecole"></context:component-scan>
 </beans>
