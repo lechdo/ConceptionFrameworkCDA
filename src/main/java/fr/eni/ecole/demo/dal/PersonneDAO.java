@@ -2,24 +2,22 @@ package fr.eni.ecole.demo.dal;
 
 import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import fr.eni.ecole.demo.bo.Personne;
 
-public interface PersonneDAO {
+public interface PersonneDAO extends JpaRepository<Personne, Integer> {
 
-	void add(Personne personne);
+	List<Personne> findByNom(String nom);
 
-	void update(Personne personne);
+	List<Personne> findByNomContaining(String nom);
 
-	void delete(Personne personne);
+	List<Personne> findByNomNotContaining(String nom);
 
-	void delete(int id);
+	List<Personne> findByNomOrPrenom(String nom, String prenom);
 
-	void delete(String nom);
+	List<Personne> findByNomAndPrenom(String nom, String prenom);
 
-	List<Personne> findAll();
-
-	Personne findById(int id);
-
-	Personne findLast();
+	List<Personne> findByNomStartingWithOrderByAdresseVilleAscAdresseCodePostalDesc(String nom);
 
 }

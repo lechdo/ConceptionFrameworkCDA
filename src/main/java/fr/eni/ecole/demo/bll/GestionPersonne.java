@@ -18,20 +18,17 @@ public class GestionPersonne {
 		return pdao.findAll();
 	}
 
-	public Personne rechercherPersonne(int id) {
-		return pdao.findById(id);
+	public List<Personne> rechercherPersonne(String nom) {
+		return pdao.findByNom(nom);
 	}
 
-	public Personne rechercherDernier() {
-		return pdao.findLast();
-	}
 
 	public void ajouterPersonne(Personne personne) {
-		pdao.add(personne);
+		pdao.save(personne);
 	}
 
 	public void modifierPersonne(Personne personne) {
-		pdao.update(personne);
+		pdao.save(personne);
 	}
 
 	public void supprimerPersonne(Personne personne) {
@@ -42,8 +39,29 @@ public class GestionPersonne {
 		pdao.delete(id);
 	}
 
-	public void supprimerPersonne(String nom) {
-		pdao.delete(nom);
+	public List<Personne> rechercherPersonneNomContenant(String nom) {
+		return pdao.findByNomContaining(nom);
+	}
+	
+	public List<Personne> rechercherPersonneNomNeContenantPas(String nom) {
+		return pdao.findByNomNotContaining(nom);
+	}
+	
+	public List<Personne> rechercherPersonneNomEtPrenom(String nom, String prenom) {
+		return pdao.findByNomAndPrenom(nom, prenom);
+	}
+	
+	public List<Personne> rechercherPersonneNomOuPrenom(String nom, String prenom) {
+		return pdao.findByNomOrPrenom(nom, prenom);
+	}
+	
+	public List<Personne> rechercherPersonneNomOrnonneParAdress(String nom) {
+		return pdao.findByNomStartingWithOrderByAdresseVilleAscAdresseCodePostalDesc(nom);
+	}
+	
+	public List<Personne> rechercherPersonneParVille(String nom) {
+		return pdao.findByNomContaining(nom);
 	}
 
+	
 }

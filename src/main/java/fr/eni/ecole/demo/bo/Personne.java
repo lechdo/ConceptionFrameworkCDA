@@ -1,9 +1,11 @@
 package fr.eni.ecole.demo.bo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -13,7 +15,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "SpringORMPersonnes")
+@Table(name = "SpringDataPersonnes")
 public class Personne {
 
 	@Id
@@ -23,14 +25,18 @@ public class Personne {
 	private String prenom;
 	private int age;
 
+	@OneToOne(cascade = CascadeType.ALL)
+	Adresse adresse;
+
 	public Personne() {
 	}
 
-	public Personne(String nom, String prenom, int age) {
+	public Personne(String nom, String prenom, int age, Adresse adresse) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
 		this.age = age;
+		this.adresse = adresse;
 	}
 
 	public int getId() {
@@ -63,6 +69,14 @@ public class Personne {
 
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	public Adresse getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(Adresse adresse) {
+		this.adresse = adresse;
 	}
 
 	@Override
