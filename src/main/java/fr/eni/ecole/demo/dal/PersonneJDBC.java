@@ -2,12 +2,17 @@ package fr.eni.ecole.demo.dal;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import fr.eni.ecole.demo.bo.Personne;
 
+@Repository("personneJDBCBean")
 public class PersonneJDBC implements PersonneDAO {
+
+	@Autowired
 	JdbcTemplate jt;
 
 	@Override
