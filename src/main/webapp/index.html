@@ -5,8 +5,22 @@
 <title>Index</title>
 </head>
 <body>
+	<p><a href="app/heure">lien vers app/heure</a></p>
 	<p><a href="app/hello">lien vers app/hello</a></p>
-	<p><a href="app/bonjour">lien vers app/bonjour</a></p>
-	<p><a href="app/bonjour/hello">lien vers app/bonjour/hello</a></p>
+	<p><a href="app/bonjour?nom=juju">lien vers app/bonjour?nom=juju</a></p>
+	
+	<div>
+		<form action="app/ajout" method="post">
+			<div>
+				<label for="nom">Nom</label>
+				<input type="text" id="nom" name="nom">
+ 			</div>
+ 			<div>
+ 				<label for="prenom">Prenom</label>
+				<input type="text" id="prenom" name="prenom">
+ 			</div>
+ 			<button type="submit">Go!</button>
+		</form>
+	</div>
 </body>
 </html>
