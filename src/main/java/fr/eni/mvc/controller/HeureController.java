@@ -23,6 +23,7 @@ public class HeureController {
 		List<String> blabla = new ArrayList<>();
 		blabla.add("Anne");
 		blabla.add("Lise");
+		map.addAttribute("liste", blabla);
 		
 		return "bonjour";
 	}
